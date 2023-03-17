@@ -21,7 +21,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      margin-top: 20px;
     }
 
     .range-title {
@@ -46,7 +45,7 @@
       right: 30%;
       position: absolute;
       border-radius: 5px;
-      background-color: #1b53c0;
+      background-color: #00C164;
     }
 
     .range-input {
@@ -67,7 +66,7 @@
       height: 24px;
       width: 24px;
       border-radius: 50%;
-      border: 3px solid #1b53c0;
+      border: 3px solid #00C164;
       background-color: #fff;
       pointer-events: auto;
       -webkit-appearance: none;
@@ -77,6 +76,7 @@
       display: block;
       font-style: normal;
       font-weight: 600;
+      margin-bottom: 20px;
       font-size: 20px;
       color: #3B3B3B;
     }
@@ -96,25 +96,6 @@
     <div class="rightBlock">
       <?php include('./app/views/layouts/nav_bar.php') ?>
       <div class="content-container">
-        <p class="title">Thủ công</p>
-        <div class="pie">
-          <div class="piece2">
-            <img style="width: 80px; height: 80px; position: absolute; left: 26%; top: 19%;" src="image/lamp.png" alt="asdas">
-            <label class="switch">
-              <input type="checkbox">
-              <span class="slider round"></span>
-            </label>
-
-          </div>
-
-          <div class="piece2">
-            <img style="width: 55px; height: 70px; position: absolute; left: 33%; top: 24%;" src="image/water.png" alt="asdas">
-            <label class="switch">
-              <input type="checkbox">
-              <span class="slider round"></span>
-            </label>
-          </div>
-        </div>
         <p class="title">Tự động</p>
         <div class="auto-container">
           <div class="range-container">
@@ -149,6 +130,28 @@
               </div>
             </div>
           </div>
+          <p class="title">Thủ công</p>
+          <div class="pie">
+            <div class="piece2">
+              <img src="image/lamp.png" alt="asdas">
+              <p>Đèn</p>
+              <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+              </label>
+
+            </div>
+
+            <div class="piece2">
+              <img src="image/water.png" alt="asdas">
+              <p>Nước</p>
+              <label class="switch">
+                <input onblur="console.log('a')" onfocus="console.log('b')" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -163,6 +166,11 @@
   const phInput = document.querySelectorAll("#ph-range input");
   const timeOutput = document.querySelectorAll("#time-output p");
   const phOutput = document.querySelectorAll("#ph-output p");
+
+  $('document').ready(function() {
+    getTimeStartData()
+    getTimeEndData()
+  })
 
   timeInput.forEach((input) => {
     input.addEventListener("input", (e) => {
@@ -211,6 +219,34 @@
         type: type,
       },
     });
+  }
+
+  function getTimeStartData() {
+    $.ajax({
+      url: 'get_data.php?data=time-start',
+      type: "POST",
+      success: function(response) {
+        var data_rcv = JSON.parse(JSON.parse(response))
+        timeOutput[0].innerHTML = data_rcv.value
+        var timeStr = data_rcv.value.split(':')
+        timeInput[0].value = (parseInt(timeStr[0]) * 60 + parseInt(timeStr[1]))
+        timeRange.style.left = timeInput[0].value / timeInput[0].max * 100 + "%";
+      }
+    })
+  }
+
+  function getTimeEndData() {
+    $.ajax({
+      url: 'get_data.php?data=time-end',
+      type: "POST",
+      success: function(response) {
+        var data_rcv = JSON.parse(JSON.parse(response))
+        timeOutput[1].innerHTML = data_rcv.value
+        var timeStr = data_rcv.value.split(':')
+        timeInput[1].value = (parseInt(timeStr[1]) * 60 + parseInt(timeStr[1]))
+        timeRange.style.right = 100 - (timeInput[1].value / timeInput[0].max * 100) + "%";
+      }
+    })
   }
 </script>
 
