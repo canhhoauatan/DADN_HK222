@@ -12,8 +12,7 @@
 
 <body class="imageBack">
 
-	<img src="https://files.etrade.vn/images/276/files/6c9cca0d1997ffc9a686.jpeg" alt="Mô tả hình ảnh"
-		style="width: 62%; height: 100vh;">
+	<img src="https://files.etrade.vn/images/276/files/6c9cca0d1997ffc9a686.jpeg" alt="Mô tả hình ảnh" style="width: 62%; height: 100vh;">
 
 	<div class="righthand">
 		<h1 style=" position: absolute;
@@ -38,33 +37,35 @@
 					color: #535353; ">Hệ thống tưới nhỏ giọt cho cây xà lách</h3>
 
 		<form>
-			<h1 style="   float: left; margin-top: 40px; font-weight: 500; color: #00C164;">Tạo tài khoản</h1>
+			<h1 style="   float: left; margin-top: 40px; font-weight: 500; color: #00C164;">Đăng nhập</h1>
 
 			<label for="username">Tài khoản</label>
 			<input type="text" id="username" name="username" required>
 
-			<label for="email">Email</label>
-			<input type="email" id="email" name="email" required>
-
-			<label for="password">Password</label>
+			<label for="password">Mật khẩu</label>
 			<input type="password" id="password" name="password" required>
 
-			<label for="confirm-password">Confirm Password</label>
-			<input type="password" id="confirm-password" name="confirm-password" required>
+			<div class="forgot-password">
+				<a href="forgot-password">Quên mật khẩu?</a>
+			</div>
 
-			<a style="margin-top: 30px;" href="index.html" class="button">Tiếp tục</a>
 
+			<a href="dashboard" class="button">Đăng nhập</a>
 
 			<div style=" font-size: 14px;" class="dangki">
-				Đã có tài khoản?
+				Chưa có tài khoản?
 				<div class="register">
-					<a style="color: #00C164; text-decoration: none;" href="index.html">Đăng nhập ngay</a>
+					<a style="color: #00C164; text-decoration: none;" href="register">Đăng kí ngay</a>
 				</div>
 			</div>
 
 
 		</form>
 	</div>
+
+
+
+
 
 </body>
 

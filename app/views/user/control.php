@@ -14,46 +14,19 @@
 
 <body>
   <div class="container">
-    <div class="leftBlock">
-      <p style="  font-style: normal;
-            font-weight: 700;
-            font-size: 45px;
-            text-align: center;
-            color: #00C164;">Latuce.</p>
+    <?php include('./app/views/layouts/left_bar.php') ?>
 
-      <a style="margin-top: 10%;" href="dashboard.html" class="button button1 button2">
-        <i style="font-size: 28px; position: absolute; left: 50px;" class="fa fa-th-large"></i>
-        Tong quan</a>
-      <a style="margin-top: -15%;" href="#" class="button button1">
-        <i style="font-size: 28px; position: absolute; left: 50px; transform: rotate(90deg);" class="fa fa-sliders"></i>
-        Dieu khien</a>
-    </div>
     <div class="rightBlock">
-      <div class="navbar">
-        <p style="margin-left: 80px; font-size: 25px; font-style: normal;
-            font-weight: 700;
-            font-size: 28px;
-            line-height: 39px;
-            text-align: center;
-            color: #3B3B3B;">Tong quan</p>
-        <div style="display: flex; flex-direction: row; justify-content: space-between; width: 40%; margin: 5%;">
-          <i style="left: 60%; position: relative; font-size: 24px;" class="fa fa-bell"></i>
-
-          <div class="register">
-            <a style="color: #00C164; text-decoration: none;" href="index.html">Đăng xuất</a>
-          </div>
-        </div>
-      </div>
+      <?php include('./app/views/layouts/nav_bar.php') ?>
       <p style="display: block;  margin: 2% 0 0 7%; font-style: normal;
-font-weight: 500;
-font-size: 20px;
-line-height: 29px;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 29px;
 
-color: #3B3B3B;">Thu cong</p>
+      color: #3B3B3B;">Thu cong</p>
       <div style="height: 35%;" class="pie">
         <div class="piece2">
-          <img style="width: 80px; height: 80px; position: absolute; left: 26%; top: 19%;" src="/image/lamp.png"
-            alt="asdas">
+          <img style="width: 80px; height: 80px; position: absolute; left: 26%; top: 19%;" src="/image/lamp.png" alt="asdas">
           <label class="switch">
             <input type="checkbox">
             <span class="slider round"></span>
@@ -62,8 +35,7 @@ color: #3B3B3B;">Thu cong</p>
         </div>
 
         <div class="piece2">
-          <img style="width: 55px; height: 70px; position: absolute; left: 33%; top: 24%;" src="/image/water.png"
-            alt="asdas">
+          <img style="width: 55px; height: 70px; position: absolute; left: 33%; top: 24%;" src="/image/water.png" alt="asdas">
           <label class="switch">
             <input type="checkbox">
             <span class="slider round"></span>
@@ -81,8 +53,7 @@ line-height: 29px;
 color: #3B3B3B;">Tu dong</p>
       <div style="height: 25%;" class="pie">
         <div class="piece3">
-          <img style="width: 65px; height: 65px; position: absolute; left: 10%; top: 24%;" src="/image/sun.png"
-            alt="asdas">
+          <img style="width: 65px; height: 65px; position: absolute; left: 10%; top: 24%;" src="/image/sun.png" alt="asdas">
 
           <p style="font-style: normal;
                 font-weight: 500;
@@ -95,8 +66,7 @@ color: #3B3B3B;">Tu dong</p>
         </div>
 
         <div class="piece3">
-          <img style="width: 65px; height: 65px; position: absolute; left: 10%; top: 24%;" src="/image/temp.png"
-            alt="asdas">
+          <img style="width: 65px; height: 65px; position: absolute; left: 10%; top: 24%;" src="/image/temp.png" alt="asdas">
 
           <p style="font-style: normal;
                 font-weight: 500;
@@ -111,8 +81,7 @@ color: #3B3B3B;">Tu dong</p>
 
 
         <div class="piece3">
-          <img style="width: 65px; height: 65px; position: absolute; left: 10%; top: 24%;" src="/image/ph.png"
-            alt="asdas">
+          <img style="width: 65px; height: 65px; position: absolute; left: 10%; top: 24%;" src="/image/ph.png" alt="asdas">
 
           <p style="font-style: normal;
                 font-weight: 500;
