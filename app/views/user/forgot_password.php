@@ -13,8 +13,7 @@
 
 <body class="imageBack">
 
-	<img src="https://files.etrade.vn/images/276/files/6c9cca0d1997ffc9a686.jpeg" alt="Mô tả hình ảnh"
-		style="width: 62%; height: 100vh;">
+	<img src="https://files.etrade.vn/images/276/files/6c9cca0d1997ffc9a686.jpeg" alt="Mô tả hình ảnh" style="width: 62%; height: 100vh;">
 
 	<div class="righthand">
 		<h1 style=" position: absolute;
@@ -39,7 +38,7 @@
 						color: #535353; ">Hệ thống tưới nhỏ giọt cho cây xà lách</h3>
 		<form>
 
-			<a style="width: 100%; color: #00C164;" href="index.html">
+			<a style="width: 100%; color: #00C164;" href="login">
 				<i class="fa fa-arrow-left" style="font-size: 25px; width: 100%;"></i>
 			</a>
 
@@ -53,7 +52,7 @@
 			<label for="email">Email</label>
 			<input type="email" id="email" name="email" required>
 
-			<a style="margin-top: 30px;" href="resetPass.html" class="button">Reset Password</a>
+			<a style="margin-top: 30px;" href="reset-password" class="button">Reset Password</a>
 
 		</form>
 	</div>
