@@ -146,7 +146,7 @@
               <img src="image/water.png" alt="asdas">
               <p>Nước</p>
               <label class="switch">
-                <input onblur="console.log('a')" onfocus="console.log('b')" type="checkbox">
+                <input onchange='togglePump(this)' type="checkbox">
                 <span class="slider round"></span>
               </label>
             </div>
@@ -171,6 +171,14 @@
     getTimeStartData()
     getTimeEndData()
   })
+
+  function togglePump(checkbox) {
+    if (checkbox.checked == true) {
+      createData('pump', 1)
+    } else {
+      createData('pump', 0)
+    }
+  }
 
   timeInput.forEach((input) => {
     input.addEventListener("input", (e) => {
