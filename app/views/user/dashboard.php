@@ -54,31 +54,33 @@
 		<?php include('./app/views/layouts/left_bar.php') ?>
 		<div class="rightBlock">
 			<?php include('./app/views/layouts/nav_bar.php') ?>
-
-			<div class="pie">
-				<div class="piece">
-					<img src="image/sun.png" alt="asdas">
-					<div class="piece-text">
-						<p class="piece-value" id="light-value">85%</p>
-						<p class="piece-description">Độ sáng</p>
+			<div class="content-container">
+				<div class="pie">
+					<div class="piece">
+						<img src="image/sun.png" alt="asdas">
+						<div class="piece-text">
+							<p class="piece-value" id="light-value">85%</p>
+							<p class="piece-description">Độ sáng</p>
+						</div>
 					</div>
-				</div>
 
-				<div class="piece">
-					<img src="image/temp.png" alt="asdas">
-					<div class="piece-text">
-						<p class="piece-value" id="temp-value">30°C</p>
-						<p class="piece-description">Nhiệt độ</p>
+					<div class="piece">
+						<img src="image/temp.png" alt="asdas">
+						<div class="piece-text">
+							<p class="piece-value" id="temp-value">30°C</p>
+							<p class="piece-description">Nhiệt độ</p>
+						</div>
 					</div>
-				</div>
-				<div class="piece">
-					<img src="image/ph.png" alt="asdas">
-					<div class="piece-text">
-						<p class="piece-value" id="ph-value">5pH</p>
-						<p class="piece-description">Độ pH</p>
+					<div class="piece">
+						<img src="image/ph.png" alt="asdas">
+						<div class="piece-text">
+							<p class="piece-value" id="ph-value">5pH</p>
+							<p class="piece-description">Độ pH</p>
+						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
 </body>
 <script>
