@@ -1,5 +1,5 @@
 <?php
-$KEY = 'aio_FCEQ25gsMkNIYccZ9X7OG9iXGbQC';
+$KEY = 'aio_YmPB706PI1ebTejIFEzKCMZX3MSU';
 $ch = curl_init();
 
 curl_setopt($ch, CURLOPT_URL, 'https://io.adafruit.com/api/v2/anhtuan123/feeds/yolo-' . $_GET['data'] . '/data/last');
