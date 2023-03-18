@@ -336,7 +336,7 @@
         pumpInput.style.checked = pumpInput.checked
       }
     })
-    setTimeout(getPumpData, 3000)
+    setTimeout(getPumpData, 1000)
   }
 
   function getAutoData() {
@@ -350,7 +350,6 @@
         autoInput.style.checked = autoInput.checked
       }
     })
-    setTimeout(getPumpData, 1000)
   }
 
   function getTimeStartData() {
