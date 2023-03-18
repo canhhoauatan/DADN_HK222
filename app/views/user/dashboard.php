@@ -84,9 +84,9 @@
 </body>
 <script>
 	$('document').ready(function() {
-		setInterval(getTempData()); //request every x seconds
-		setInterval(getLightData());
-		setInterval(getPHData());
+		getTempData(); //request every x seconds
+		getLightData();
+		getPHData();
 	});
 
 	function getTempData() {
