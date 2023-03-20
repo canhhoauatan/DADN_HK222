@@ -13,9 +13,9 @@
 
 <body class="imageBack">
 
-	<img src="https://files.etrade.vn/images/276/files/6c9cca0d1997ffc9a686.jpeg" alt="Mô tả hình ảnh" style="width: 62%; height: 100vh;">
+	<img class="left-image" src="https://files.etrade.vn/images/276/files/6c9cca0d1997ffc9a686.jpeg" alt="Mô tả hình ảnh">
 
-	<div class="righthand">
+	<div class=" righthand">
 		<h1 style=" position: absolute;
 						font-style: normal;
 						font-weight: 700;

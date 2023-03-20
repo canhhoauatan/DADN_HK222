@@ -76,6 +76,10 @@ label {
   color: #7F7F7F;
 }
 
+.left-image {
+  height: 100vh;
+  width: 50%;
+}
 
 .button {
   display: flex;
@@ -93,10 +97,6 @@ label {
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
-}
-
-.button:hover {
-  background-color: #9ee2c2;
 }
 
 
@@ -181,7 +181,9 @@ label {
 }
 
 .button2:hover {
-  background-color: white;
+  background-color: #00C164;
+  color: white;
+  transition: all 0.2s ease-out;
 }
 
 .navbar {

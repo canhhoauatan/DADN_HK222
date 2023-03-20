@@ -194,7 +194,7 @@
 
             <div class="piece2">
               <img src="image/water.png" alt="asdas">
-              <p>Nước</p>
+              <p>Máy bơm</p>
               <label class="switch">
                 <input id="pump-input" type="checkbox">
                 <span class="slider round"></span>
