@@ -175,8 +175,8 @@
                 <span class="range-selected"></span>
               </div>
               <div id="ph-range" class="range-input">
-                <input onchange="createData('ph-min', phOutput[0].innerHTML);" type="range" class="min" min="0" max="1000" value="300" step="10">
-                <input onchange="createData('ph-max', phOutput[1].innerHTML);" type="range" class="max" min="0" max="1000" value="700" step="10">
+                <input onchange="createData('ph-min', phOutput[0].innerHTML.slice(0, 2));" type="range" class="min" min="0" max="1000" value="300" step="10">
+                <input onchange="createData('ph-max', phOutput[1].innerHTML.slice(0, 2));" type="range" class="max" min="0" max="1000" value="700" step="10">
               </div>
             </div>
           </div>
@@ -306,17 +306,17 @@
           phInput[1].value = minRange + rangeMin;
         }
       } else {
-        phOutput[0].innerHTML = Math.floor((minRange / phInput[0].max) * 100);
-        phOutput[1].innerHTML = Math.floor((maxRange / phInput[0].max) * 100);
-        phRange.style.left = phOutput[0].innerHTML + "%";
-        phRange.style.right = 100 - phOutput[1].innerHTML + "%";
+        phOutput[0].innerHTML = Math.floor((minRange / phInput[0].max) * 100) + "%";
+        phOutput[1].innerHTML = Math.floor((maxRange / phInput[0].max) * 100) + "%";
+        phRange.style.left = phOutput[0].innerHTML;
+        phRange.style.right = (100 - phOutput[1].innerHTML.slice(0, 2)) + "%";
       }
     });
   });
 
   function createData(type, value) {
     $.ajax({
-      url: 'create_data.php',
+      url: 'create_data',
       type: "POST",
       data: {
         value: value,
@@ -328,8 +328,11 @@
   function getPumpData() {
 
     $.ajax({
-      url: 'get_data.php?data=pump',
+      url: 'get_data',
       type: "POST",
+      data: {
+        type: 'pump',
+      },
       success: function(response) {
         var data_rcv = JSON.parse(JSON.parse(response))
         pumpInput.checked = data_rcv.value == '1' ? true : false
@@ -342,8 +345,11 @@
   function getAutoData() {
 
     $.ajax({
-      url: 'get_data.php?data=auto',
+      url: 'get_data',
       type: "POST",
+      data: {
+        type: 'auto',
+      },
       success: function(response) {
         var data_rcv = JSON.parse(JSON.parse(response))
         autoInput.checked = data_rcv.value == '1' ? true : false
@@ -354,8 +360,11 @@
 
   function getTimeStartData() {
     $.ajax({
-      url: 'get_data.php?data=time-start',
+      url: 'get_data',
       type: "POST",
+      data: {
+        type: 'time-start',
+      },
       success: function(response) {
         var data_rcv = JSON.parse(JSON.parse(response))
         timeOutput[0].innerHTML = data_rcv.value
@@ -368,8 +377,11 @@
 
   function getTimeEndData() {
     $.ajax({
-      url: 'get_data.php?data=time-end',
+      url: 'get_data',
       type: "POST",
+      data: {
+        type: 'time-end',
+      },
       success: function(response) {
         var data_rcv = JSON.parse(JSON.parse(response))
         timeOutput[1].innerHTML = data_rcv.value

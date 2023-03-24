@@ -90,42 +90,42 @@
 
 	</div>
 	<script>
-		const xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
-		const yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+		// const xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+		// const yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
 
-		new Chart("lightChart", {
-			type: "line",
-			data: {
-				labels: xValues,
-				datasets: [{
-					backgroundColor: "rgba(0,193,100,1.0)",
-					borderColor: "rgba(0,193,100,0.1)",
-					data: yValues
-				}]
-			},
-			options: {
-				xAxis: {
-					type: 'time',
-				}
-			}
-		});
+		// new Chart("lightChart", {
+		// 	type: "line",
+		// 	data: {
+		// 		labels: xValues,
+		// 		datasets: [{
+		// 			backgroundColor: "rgba(0,193,100,1.0)",
+		// 			borderColor: "rgba(0,193,100,0.1)",
+		// 			data: yValues
+		// 		}]
+		// 	},
+		// 	options: {
+		// 		xAxis: {
+		// 			type: 'time',
+		// 		}
+		// 	}
+		// });
 
-		new Chart("tempChart", {
-			type: "line",
-			data: {
-				labels: xValues,
-				datasets: [{
-					backgroundColor: "rgba(0,193,100,1.0)",
-					borderColor: "rgba(0,193,100,0.1)",
-					data: yValues
-				}]
-			},
-			options: {
-				xAxis: {
-					type: 'time',
-				}
-			}
-		});
+		// new Chart("tempChart", {
+		// 	type: "line",
+		// 	data: {
+		// 		labels: xValues,
+		// 		datasets: [{
+		// 			backgroundColor: "rgba(0,193,100,1.0)",
+		// 			borderColor: "rgba(0,193,100,0.1)",
+		// 			data: yValues
+		// 		}]
+		// 	},
+		// 	options: {
+		// 		xAxis: {
+		// 			type: 'time',
+		// 		}
+		// 	}
+		// });
 
 		$('document').ready(function() {
 			getTempData(); //request every x seconds
@@ -135,9 +135,12 @@
 
 		function getTempData() {
 			$.ajax({
-				url: 'get_data.php?data=temp',
+				url: 'get_data',
 				type: "POST",
 				async: true,
+				data: {
+					type: 'temp',
+				},
 				success: function(response) {
 					var data_rcv = JSON.parse(JSON.parse(response))
 					document.getElementById("temp-value").innerHTML = data_rcv.value + "°C"
@@ -150,8 +153,11 @@
 
 		function getLightData() {
 			$.ajax({
-				url: 'get_data.php?data=light',
+				url: 'get_data',
 				type: "POST",
+				data: {
+					type: 'light',
+				},
 				async: true,
 				success: function(response) {
 					var data_rcv = JSON.parse(JSON.parse(response))
@@ -165,9 +171,12 @@
 
 		function getPHData() {
 			$.ajax({
-				url: 'get_data.php?data=ph',
+				url: 'get_data',
 				type: "POST",
 				async: true,
+				data: {
+					type: 'ph',
+				},
 				success: function(response) {
 					var data_rcv = JSON.parse(JSON.parse(response))
 					document.getElementById("ph-value").innerHTML = data_rcv.value + "pH"

@@ -20,4 +20,10 @@ $router->add('reset-password', ['controller' => 'Login', 'action' => 'resetPassw
 $router->add('dashboard', ['controller' => 'Dashboard', 'action' => 'index']);
 $router->add('control', ['controller' => 'Dashboard', 'action' => 'control']);
 
+// Sensor
+$router->add('get_data', ['controller' => 'SensorController', 'action' => 'getSensorData']);
+$router->add('create_data', ['controller' => 'SensorController', 'action' => 'createSensorData']);
+
+
+
 $router->dispatch($_SERVER['QUERY_STRING']);
