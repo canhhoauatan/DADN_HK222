@@ -8,6 +8,25 @@
 	<title>Latuce</title>
 	<link rel="stylesheet" href="style.css">
 	<link rel="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+	<style>
+		.login-button {
+			display: flex;
+			width: 90%;
+			background-color: #00C164;
+			color: white;
+			padding: 24px 0px;
+			cursor: pointer;
+			text-decoration: none;
+			align-items: center;
+			justify-content: center;
+			height: 24px;
+			font-size: 16px;
+			border-radius: 8px;
+			border: 1px solid #ccc;
+		}
+	</style>
 </head>
 
 <body class="imageBack">
@@ -36,8 +55,8 @@
 					line-height: 27px;
 					color: #535353; ">Hệ thống tưới nhỏ giọt cho cây xà lách</h3>
 
-		<form>
-			<h1 style="   float: left; margin-top: 40px; font-weight: 500; color: #00C164;">Đăng nhập</h1>
+		<form onsubmit="loginSubmit(event);">
+			<h1 style="float: left; margin-top: 40px; font-weight: 500; color: #00C164;">Đăng nhập</h1>
 
 			<label for="username">Tài khoản</label>
 			<input type="text" id="username" name="username" required>
@@ -49,8 +68,7 @@
 				<a href="forgot-password">Quên mật khẩu?</a>
 			</div>
 
-
-			<a href="dashboard" class="button">Đăng nhập</a>
+			<button class="login-button">Đăng nhập</button>
 
 			<div style=" font-size: 14px;" class="dangki">
 				Chưa có tài khoản?
@@ -58,15 +76,28 @@
 					<a style="color: #00C164; text-decoration: none;" href="register">Đăng kí ngay</a>
 				</div>
 			</div>
-
-
 		</form>
 	</div>
 
 
-
-
-
+	<script>
+		function loginSubmit(event) {
+			event.preventDefault();
+			$.ajax({
+				type: "post",
+				url: "/DADN_HK222/login/login_process",
+				data: {
+					"username": $("#username").val(),
+					"password": $("#password").val(),
+				},
+				success: function(response) {
+					if (response == 1) {
+						window.location.href = "/DADN_HK222"
+					}
+				}
+			});
+		}
+	</script>
 </body>
 
 </html>

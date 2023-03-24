@@ -11,6 +11,7 @@
 	<link rel="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js"></script>
 
 	<style>
 		.piece {
@@ -78,61 +79,106 @@
 						</div>
 					</div>
 				</div>
+				<!-- <div style="width: 50%; float: left;">
+					<canvas id="lightChart"></canvas>
+				</div>
+				<div style="width: 50%; float: left;">
+					<canvas id="tempChart"></canvas>
+				</div> -->
 			</div>
-
 		</div>
+
+	</div>
+	<script>
+		const xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+		const yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+
+		new Chart("lightChart", {
+			type: "line",
+			data: {
+				labels: xValues,
+				datasets: [{
+					backgroundColor: "rgba(0,193,100,1.0)",
+					borderColor: "rgba(0,193,100,0.1)",
+					data: yValues
+				}]
+			},
+			options: {
+				xAxis: {
+					type: 'time',
+				}
+			}
+		});
+
+		new Chart("tempChart", {
+			type: "line",
+			data: {
+				labels: xValues,
+				datasets: [{
+					backgroundColor: "rgba(0,193,100,1.0)",
+					borderColor: "rgba(0,193,100,0.1)",
+					data: yValues
+				}]
+			},
+			options: {
+				xAxis: {
+					type: 'time',
+				}
+			}
+		});
+
+		$('document').ready(function() {
+			getTempData(); //request every x seconds
+			getLightData();
+			getPHData();
+		});
+
+		function getTempData() {
+			$.ajax({
+				url: 'get_data.php?data=temp',
+				type: "POST",
+				async: true,
+				success: function(response) {
+					var data_rcv = JSON.parse(JSON.parse(response))
+					document.getElementById("temp-value").innerHTML = data_rcv.value + "°C"
+					console.log(data_rcv.value)
+				}
+			});
+
+			setTimeout(getTempData, 10000); //ms, for automatic updating function
+		}
+
+		function getLightData() {
+			$.ajax({
+				url: 'get_data.php?data=light',
+				type: "POST",
+				async: true,
+				success: function(response) {
+					var data_rcv = JSON.parse(JSON.parse(response))
+					document.getElementById("light-value").innerHTML = data_rcv.value + "%"
+					console.log(data_rcv.value)
+				}
+			});
+
+			setTimeout(getLightData, 10000); //ms, for automatic updating function
+		}
+
+		function getPHData() {
+			$.ajax({
+				url: 'get_data.php?data=ph',
+				type: "POST",
+				async: true,
+				success: function(response) {
+					var data_rcv = JSON.parse(JSON.parse(response))
+					document.getElementById("ph-value").innerHTML = data_rcv.value + "pH"
+					console.log(data_rcv.value)
+				}
+			});
+
+			setTimeout(getPHData, 10000); //ms, for automatic updating function
+		}
+	</script>
 </body>
-<script>
-	$('document').ready(function() {
-		getTempData(); //request every x seconds
-		getLightData();
-		getPHData();
-	});
 
-	function getTempData() {
-		$.ajax({
-			url: 'get_data.php?data=temp',
-			type: "POST",
-			async: true,
-			success: function(response) {
-				var data_rcv = JSON.parse(JSON.parse(response))
-				document.getElementById("temp-value").innerHTML = data_rcv.value + "°C"
-				console.log(data_rcv.value)
-			}
-		});
-
-		setTimeout(getTempData, 10000); //ms, for automatic updating function
-	}
-
-	function getLightData() {
-		$.ajax({
-			url: 'get_data.php?data=light',
-			type: "POST",
-			async: true,
-			success: function(response) {
-				var data_rcv = JSON.parse(JSON.parse(response))
-				document.getElementById("light-value").innerHTML = data_rcv.value + "%"
-				console.log(data_rcv.value)
-			}
-		});
-
-		setTimeout(getLightData, 10000); //ms, for automatic updating function
-	}
-
-	function getPHData() {
-		$.ajax({
-			url: 'get_data.php?data=ph',
-			type: "POST",
-			async: true,
-			success: function(response) {
-				var data_rcv = JSON.parse(JSON.parse(response))
-				document.getElementById("ph-value").innerHTML = data_rcv.value + "pH"
-				console.log(data_rcv.value)
-			}
-		});
-
-		setTimeout(getPHData, 10000); //ms, for automatic updating function
-	}
-</script>
 
 </html>

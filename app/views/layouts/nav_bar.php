@@ -9,7 +9,7 @@
         <i style="left: 60%; position: relative; font-size: 24px;" class="fa fa-bell"></i>
 
         <div class="register">
-            <a style="color: #00C164; text-decoration: none;" href="login">Đăng xuất</a>
+            <a style="color: #00C164; text-decoration: none;" href="login/logout_process">Đăng xuất</a>
         </div>
     </div>
 </div>
