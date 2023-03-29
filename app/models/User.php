@@ -16,7 +16,7 @@ class User extends Model
 
         $_SESSION['id'] = $result['id'];
         $_SESSION['username'] = $result['username'];
-        $_SESSION['api_key'] = $result['api_key'];
+        setcookie('api_key', $result['api_key'], time() + (86400 * 30), "/");
         return true;
     }
 

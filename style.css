@@ -117,13 +117,10 @@ label {
   margin: 10px 0 0 0;
 }
 
-.container {
+.db-container .row {
   width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
+  margin: 0;
 }
 
 .leftBlock {
@@ -162,28 +159,26 @@ label {
   font-size: 18px;
 }
 
-.button1 i {
-  font-size: 28px;
-  margin-left: 4px;
-  margin-right: 24px;
+.container-fluid {
+  padding: 0 !important;
 }
 
-.button2 {
-  background-color: white;
-  border: none;
-  font-style: normal;
-  font-weight: 500;
+.nav-pills {
+  --bs-nav-pills-link-active-bg: #00C164 !important;
 
-  line-height: 29px;
-  color: #9C9C9C;
-  transition: all 0.2s ease-out;
 }
 
-.button2:hover {
+.nav-item a {
+  font-size: 18px;
+  color: #00C164;
+}
+
+.nav-item a:hover {
   background-color: #00C164;
   color: white;
   transition: all 0.2s ease-out;
 }
+
 
 .navbar {
   margin: auto;

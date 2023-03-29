@@ -5,7 +5,6 @@ $router = new Router();
 
 $conn = mysqli_connect("localhost", "root", "", "Latuce");
 mysqli_set_charset($conn, 'utf8');
-session_start();
 
 //Login
 $router->add('', ['controller' => 'Login', 'action' => 'index']);
