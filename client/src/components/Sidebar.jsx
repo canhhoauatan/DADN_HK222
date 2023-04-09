@@ -22,7 +22,7 @@ const Sidebar = () => {
     const { activeMenu, setActiveMenu } = useStateContext()
 
 
-    let sidebarClass = 'shadow-xl transition-all ease-in-out h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto '
+    let sidebarClass = 'fixed bg-white shadow-xl transition-all ease-in-out h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto '
 
     if (activeMenu) {
         sidebarClass += 'w-60'
@@ -30,22 +30,26 @@ const Sidebar = () => {
     else sidebarClass += 'w-20'
 
     return (
-        <div className={sidebarClass}>
-            <div className='mt-2 flex justify-center items-center'>
-                {activeMenu ?
-                    <Link to="/" onClick={() => { setActiveMenu(false) }} className='items-center mt-4 flex text-3xl font-extrabold
+        <div>
+            <div className={sidebarClass}>
+                <div className='mt-2 flex justify-center items-center'>
+                    {activeMenu ?
+                        <Link to="/" onClick={() => { setActiveMenu(false) }} className='items-center mt-4 flex text-3xl font-extrabold
                     tracking-tight dark:text-white text-slate-900'>
-                        <span className='text-green-500'>La</span><span className=''>tuce</span><span className='text-green-500'>.</span>
-                    </Link>
-                    :
-                    <DehazeIcon onClick={() => { setActiveMenu(true) }} className='mt-7 cursor-pointer' />
-                }
-            </div>
-            <div className='mt-10'>
-                <MenuItem to="/" icon={<WindowIcon />} title="Dashboard" activeMenu={activeMenu} />
-                <MenuItem to="/control" icon={<ControlCameraIcon />} title="Control" activeMenu={activeMenu} />
-            </div>
-        </div >
+                            <span className='text-green-500'>La</span><span className=''>tuce</span><span className='text-green-500'>.</span>
+                        </Link>
+                        :
+                        <DehazeIcon onClick={() => { setActiveMenu(true) }} className='mt-7 cursor-pointer' />
+                    }
+                </div>
+                <div className='mt-10'>
+                    <MenuItem to="/" icon={<WindowIcon />} title="Dashboard" activeMenu={activeMenu} />
+                    <MenuItem to="/control" icon={<ControlCameraIcon />} title="Control" activeMenu={activeMenu} />
+                </div>
+            </div >
+            <div className={activeMenu ? 'w-60' : 'w-20'}></div>
+        </div>
+
     )
 }
 

@@ -10,7 +10,7 @@ const DashboardLayout = () => {
 
     return (<>
         <Sidebar />
-        <div className='flex-1 bg-light-gray'>
+        <div className='w-full bg-light-gray'>
             <Navbar />
             <div className='mt-10'>
                 <Outlet />

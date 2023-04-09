@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import DashboardLayout from './layouts/DashboardLayout';
@@ -10,8 +10,6 @@ import Login from './pages/Login'
 
 import Cookie from 'universal-cookie';
 
-import { useStateContext } from './contexts/ContextProvider';
-
 import './App.css'
 
 
@@ -20,10 +18,9 @@ const authToken = cookie.get('token')
 
 
 const App = () => {
-    const { activeMenu } = useStateContext()
 
     return (authToken ?
-        <div id="app" className='flex h-screen'>
+        <div id="app" className='flex'>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<DashboardLayout />} >

@@ -10,11 +10,15 @@ const cookie = new Cookie()
 const handleSwitch = (checked, type) => {
     const value = checked ? 1 : 0;
 
+    publishValue(value, type)
+}
+
+const publishValue = (value, type) => {
     axios.post(`http://localhost:8080/adafruit/publish/${type}/${value}`, {
         user_id: cookie.get('user_id'),
     })
-
 }
+
 
 const ControlCard = ({ image, title }) => (
     <Card sx={{ borderRadius: "12px" }} className='mx-6 w-44 h-64 mb-5 flex flex-col p-3 justify-start items-center'>
@@ -66,7 +70,13 @@ const Control = () => {
     }
 
     function handleOnChangeCommitted(event, value, type) {
-
+        if (type === 'yolo-time') {
+            publishValue(timeStart, 'yolo-time-start')
+            publishValue(timeEnd, 'yolo-time-end')
+        } else if (type === 'yolo-ph') {
+            publishValue(pHMax.slice(0, -1), 'yolo-ph-max')
+            publishValue(pHMin.slice(0, -1), 'yolo-ph-min')
+        }
     }
 
     return (

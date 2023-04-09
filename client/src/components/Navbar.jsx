@@ -38,7 +38,7 @@ function Navbar() {
             <NavButton title="Menu" customFunc={() => setActiveMenu(!activeMenu)} color="rgb(34 197 94)" icon={<DehazeIcon />} />
 
             <div className='flex items-center'>
-                <NavButton title="Notifications" color="rgb(156 163 175)" dotColor="rgb(34 197 94)" icon={<NotificationsIcon onClick={() => setActiveTooltip(activeTooltip == 'notification' ? '' : 'notification')} />} />
+                <NavButton title="Notifications" color="rgb(156 163 175)" dotColor="rgb(34 197 94)" icon={<NotificationsIcon onClick={() => setActiveTooltip(activeTooltip === 'notification' ? '' : 'notification')} />} />
                 <Tooltip title="Profile">
                     <div onClick={() => setActiveTooltip(activeTooltip == 'profile' ? '' : 'profile')} className='flex items-center gap-2 cursor-pointer p-1'>
                         <p>
@@ -60,8 +60,6 @@ function Navbar() {
                     <div></div> : null
                 }
             </div>
-
-
         </div>
     )
 }
