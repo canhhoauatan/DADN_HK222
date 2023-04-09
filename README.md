@@ -13,13 +13,16 @@ npm install
 ```
 MONGODB_URI=YOUR MONGODB URI
 ```
-3. Cd to client and run the npm command below
-
-```sh
-npm start
+3. Start server:
 ```
-4. Open new terminal, cd to server and run the npm command below
-
-```sh
+cd server
+npm install
 npm run dev
+```
+
+Start Web server (client)
+```
+cd client
+npm install
+npm start
 ```
