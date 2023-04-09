@@ -11,7 +11,7 @@ npm install
 2. In the .env file ensure you have the following setup.
 
 ```
-MONGODB_URI=YOUR MONGODB URI
+MONGODB_URI=YOUR MONGODB URI //mongodb://127.0.0.1:27017/latuce
 ```
 3. Start server:
 ```
