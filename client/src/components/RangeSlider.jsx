@@ -1,36 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Slider } from '@mui/material'
 
-function valuetext(value) {
-    return `${value}`;
-}
 
-const minDistance = 10;
 
-const RangeSlider = () => {
-    const [value1, setValue1] = React.useState([20, 37]);
 
-    const handleChange1 = (event, newValue, activeThumb) => {
+const RangeSlider = (props) => {
+    const minDistance = props.minDistance;
+
+    const [value, setValue] = useState(props.defaultValue);
+
+    const handleOnChange = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
             return;
         }
-
         if (activeThumb === 0) {
-            setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
+            setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
         } else {
-            setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
+            setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
         }
     };
 
     return (
+
         <Slider
             getAriaLabel={() => 'Minimum distance'}
-            value={value1}
-            onChange={handleChange1}
-            valueLabelDisplay="auto"
-            getAriaValueText={valuetext}
+            value={value}
+            defaultValue={props.defaultValue}
+            max={props.max}
+            onChange={(event, newValue, activeThumb) => {
+                handleOnChange(event, newValue, activeThumb);
+                props.onChange(event, newValue, activeThumb);
+            }}
+            onChangeCommitted={props.onChangeCommitted}
             disableSwap
+            className='mx-5'
+            step={props.step}
         />
+
     )
 }
 
