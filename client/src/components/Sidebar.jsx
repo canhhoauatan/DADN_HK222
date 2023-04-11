@@ -44,7 +44,7 @@ const Sidebar = () => {
                 </div>
                 <div className='mt-10'>
                     <MenuItem to="/" icon={<WindowIcon />} title="Dashboard" activeMenu={activeMenu} />
-                    <MenuItem to="/control" icon={<ControlCameraIcon />} title="Control" activeMenu={activeMenu} />
+                    <MenuItem to="/control" icon={<ControlCameraIcon />} title="Điều khiển" activeMenu={activeMenu} />
                 </div>
             </div >
             <div className={activeMenu ? 'w-60' : 'w-20'}></div>

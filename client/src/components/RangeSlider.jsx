@@ -24,7 +24,7 @@ const RangeSlider = (props) => {
 
         <Slider
             getAriaLabel={() => 'Minimum distance'}
-            value={value}
+            value={props.value}
             defaultValue={props.defaultValue}
             max={props.max}
             onChange={(event, newValue, activeThumb) => {

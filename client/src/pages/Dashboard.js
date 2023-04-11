@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Box, CardContent, Typography, CardMedia, Button, ButtonGroup } from '@mui/material';
+import { Card, Box, CardContent, Typography, CardMedia } from '@mui/material';
 import { socket } from '../socket';
 import Cookie from 'universal-cookie';
 import LineChart from '../components/LineChart';
@@ -96,15 +96,14 @@ const Dashboard = () => {
                 setPHValue(data.value);
             }
         }
-        socket.emit('getRecordAndData', { user_id: cookie.get('user_id') })
+        socket.emit('getRecord', { user_id: cookie.get('user_id') })
+        socket.emit('getData', { user_id: cookie.get('user_id') })
+        socket.on('record_recv', handleRecordRecv)
+        socket.on('data_recv', handleDataRecv)
 
         socket.on('askForUserId', () => {
             socket.emit('userIdReceived', { user_id: cookie.get('user_id') })
         })
-
-        socket.on('record_recv', handleRecordRecv)
-
-        socket.on('data_recv', handleDataRecv)
 
         return () => {
             socket.off('askForUserId');

@@ -36,11 +36,13 @@ class MQTTAdafruitIO {
 
             const sensor = await Sensor.findOneAndUpdate({ type: feed_id, user_id: user.id }, { value: payload })
 
-            var newRecord = new Record({
-                data: payload,
-                sensor_id: sensor.id
-            })
-            newRecord.save()
+            if (feed_id == 'yolo-light' || feed_id == 'yolo-temp' || feed_id == 'yolo-ph') {
+                var newRecord = new Record({
+                    data: payload,
+                    sensor_id: sensor.id
+                })
+                newRecord.save()
+            }
 
             if (socketMap[user.id] != null) {
                 this.io.to(socketMap[user.id]).emit("data_recv", { type: sensor.type, value: payload })

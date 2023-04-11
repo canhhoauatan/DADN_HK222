@@ -54,6 +54,7 @@ async function ConnectAdafruit() {
         const sensors = await Sensor.find({ user_id: users[i].id })
 
         for (let j = 0; j < sensors.length; j++) {
+            console.log(sensors[j].type)
             mqttClient.subscribe(sensors[j].type)
         }
     }
@@ -76,13 +77,23 @@ io.on("connection", (socket) => {
     io.to(socket.id).emit('askForUserId')
 
     socket.on('userIdReceived', async (data) => {
-        console.log('getData')
         const user_id = data.user_id
         socketMap[user_id] = socket.id;
     });
 
-    socket.on('getRecordAndData', async (data) => {
-        console.log('getRecord')
+    socket.on('getRecord', async (data) => {
+        const user_id = data.user_id
+        const sensors = await Sensor.find({ user_id: user_id })
+
+        for (let i = 0; i < sensors.length; i++) {
+            const records = await Record.find({ sensor_id: sensors[i].id })
+            if (socket.id != null) {
+                io.to(socket.id).emit("record_recv", { type: sensors[i].type, records: records })
+            }
+        }
+    });
+
+    socket.on('getData', async (data) => {
         const user_id = data.user_id
         const sensors = await Sensor.find({ user_id: user_id })
 
@@ -90,7 +101,6 @@ io.on("connection", (socket) => {
             const records = await Record.find({ sensor_id: sensors[i].id })
             if (socket.id != null) {
                 io.to(socket.id).emit("data_recv", { type: sensors[i].type, value: sensors[i].value })
-                io.to(socket.id).emit("record_recv", { type: sensors[i].type, records: records })
             }
         }
     });
