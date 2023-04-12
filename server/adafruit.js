@@ -42,9 +42,16 @@ class MQTTAdafruitIO {
                     sensor_id: sensor.id
                 })
                 newRecord.save()
+
+                const records = await Record.find({ sensor_id: sensor.id })
+
+                if (socketMap[user.id] != null) {
+                    this.io.to(socketMap[user.id]).emit("record_recv", { type: sensor.type, records: records })
+                }
             }
 
             if (socketMap[user.id] != null) {
+
                 this.io.to(socketMap[user.id]).emit("data_recv", { type: sensor.type, value: payload })
             }
 

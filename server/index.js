@@ -29,6 +29,7 @@ const io = new Server(httpServer, {
     }
 });
 
+
 ConnectDatabase()
 ConnectAdafruit()
 
@@ -65,8 +66,11 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+
 app.use('/auth', authRouter)
 app.use('/adafruit', adafruitRouter)
+
+
 
 app.listen(app_port, () => console.log('App listening on ' + app_port))
 httpServer.listen(server_port, () => console.log('Server listening on ' + server_port))
@@ -104,5 +108,9 @@ io.on("connection", (socket) => {
             }
         }
     });
+
+    socket.on('webcam-data', async (data) => {
+        console.log(data.image)
+    })
 });
 
