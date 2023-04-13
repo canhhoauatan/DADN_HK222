@@ -121,7 +121,7 @@ io.on("connection", (socket) => {
         const logs = await Log.find({ user_id: user_id })
 
         if (socket.id != null) {
-            io.to(socket.id).emit("log_recv", { logs: logs })
+            io.to(socket.id).emit("log_recv", { logs: logs.reverse() })
         }
     })
 

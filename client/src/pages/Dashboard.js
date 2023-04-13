@@ -93,7 +93,7 @@ const Dashboard = () => {
                     new Date(item.created_at).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }),
                 activity: item.activity
             }))
-            setLogData(logs)
+            setLogData(logs.slice(0, 6))
         }
 
         socket.emit('getRecord', { user_id: cookie.get('user_id') })
@@ -143,7 +143,7 @@ const Dashboard = () => {
                 <div className='flex-1'>
                     <div className='w-11/12 bg-white p-3 shadow-md rounded-lg m-auto' >
                         <div className='text-black font-semibold m-3'>Hoạt động gần đây</div>
-                        <DataTable columns={columns} data={logData} pagination />
+                        <DataTable columns={columns} data={logData} />
                     </div>
                     {/* <div>
                         <Webcam className='' screenshotFormat="image/jpeg" ref={webcamRef} />
