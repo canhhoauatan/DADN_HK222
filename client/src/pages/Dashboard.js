@@ -3,6 +3,8 @@ import { socket } from '../socket';
 import Cookie from 'universal-cookie';
 import LineChart from '../components/LineChart';
 import SensorCard from '../components/SensorCard';
+import Webcam from 'react-webcam';
+import DataTable from 'react-data-table-component';
 const cookie = new Cookie()
 
 const Dashboard = () => {
@@ -45,6 +47,16 @@ const Dashboard = () => {
     const [tempData, setTempData] = useState(JSON.parse(JSON.stringify({ ...initTempData })));
     const [pHData, setPHData] = useState(JSON.parse(JSON.stringify({ ...initPHData })));
     const [chartActive, setChartActive] = useState('light')
+    const [logData, setLogData] = useState([]);
+
+    const columns = [{ name: 'Thời gian', selector: row => row.time, sortable: true }, { name: 'Hoạt động', selector: row => row.activity }]
+
+    const webcamRef = useRef(null);
+
+    const captureAndSend = () => {
+        const imageSrc = webcamRef.current.getScreenshot();
+        socket.emit('webcam-data', { image: imageSrc });
+    };
 
     useEffect(() => {
         socket.connect()
@@ -74,10 +86,22 @@ const Dashboard = () => {
                 setPHValue(data.value);
             }
         }
+
+        const handleLogRecv = (data) => {
+            const logs = data.logs.map(item => ({
+                time: new Date(item.created_at).toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }) + " " +
+                    new Date(item.created_at).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }),
+                activity: item.activity
+            }))
+            setLogData(logs)
+        }
+
         socket.emit('getRecord', { user_id: cookie.get('user_id') })
         socket.emit('getData', { user_id: cookie.get('user_id') })
+        socket.emit('getLog', { user_id: cookie.get('user_id') })
         socket.on('record_recv', handleRecordRecv)
         socket.on('data_recv', handleDataRecv)
+        socket.on('log_recv', handleLogRecv)
 
         socket.on('askForUserId', () => {
             socket.emit('userIdReceived', { user_id: cookie.get('user_id') })
@@ -87,6 +111,7 @@ const Dashboard = () => {
             socket.off('askForUserId');
             socket.off('record_recv', handleRecordRecv);
             socket.off('data_recv', handleDataRecv);
+            socket.off('log_recv', handleLogRecv);
         }
     }, [])
 
@@ -98,7 +123,7 @@ const Dashboard = () => {
                 <SensorCard image='./img/temp.png' value={tempValue} unit="°C" title="Nhiệt độ" />
                 <SensorCard image='./img/ph.png' value={pHValue} unit="pH" title="Độ ẩm đất" />
             </div>
-            <div className='flex'>
+            <div className='flex items-start'>
                 <div className='flex flex-col flex-1'>
                     <div className='w-11/12 bg-white p-3 shadow-md rounded-lg m-auto' >
                         <div className='text-black font-semibold m-3'>Thống kê</div>
@@ -117,8 +142,13 @@ const Dashboard = () => {
                 </div>
                 <div className='flex-1'>
                     <div className='w-11/12 bg-white p-3 shadow-md rounded-lg m-auto' >
-                        <div className='text-black font-semibold'>Nhật ký hoạt động</div>
+                        <div className='text-black font-semibold m-3'>Hoạt động gần đây</div>
+                        <DataTable columns={columns} data={logData} pagination />
                     </div>
+                    {/* <div>
+                        <Webcam className='' screenshotFormat="image/jpeg" ref={webcamRef} />
+                        <button className='bg-black' onClick={captureAndSend}>Capture and Send</button>
+                    </div> */}
                 </div>
             </div>
         </div >

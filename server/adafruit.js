@@ -2,6 +2,7 @@ import mqtt from 'mqtt'
 import User from './models/User.js'
 import Record from './models/Record.js'
 import Sensor from './models/Sensor.js'
+import Log from './models/Log.js'
 import socketMap from './socket.js'
 
 const MQTTClients = []
@@ -47,6 +48,14 @@ class MQTTAdafruitIO {
 
                 if (socketMap[user.id] != null) {
                     this.io.to(socketMap[user.id]).emit("record_recv", { type: sensor.type, records: records })
+                }
+            } else {
+                if (feed_id == 'yolo-auto') {
+                    var newLog = new Log({ user_id: user.id, activity: payload == '1' ? 'Chuyển sang chế độ tự động' : 'Chuyển sang chế độ thủ công' })
+                    newLog.save()
+                } else if (feed_id == 'yolo-pump') {
+                    var newLog = new Log({ user_id: user.id, activity: payload == '1' ? 'Bật thủ công máy bơm' : 'Tắt thủ công máy bơm' })
+                    newLog.save()
                 }
             }
 

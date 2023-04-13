@@ -18,8 +18,11 @@ import { Server } from "socket.io";
 import Record from './models/Record.js'
 import Sensor from './models/Sensor.js'
 import User from './models/User.js'
+import Log from './models/Log.js'
 
 import MQTTAdafruitIO from './adafruit.js'
+import * as tf from '@tensorflow/tfjs-node'
+import { promises as fs } from 'fs';
 
 const httpServer = createServer();
 
@@ -27,8 +30,12 @@ const io = new Server(httpServer, {
     cors: {
         origin: "http://localhost:3000"
     }
-});
+})
 
+const modelPath = tf.io.fileSystem("./build/model.json")
+const classifyJSONPath = './build/class_indices.json'
+const classifyIndices = JSON.parse(await fs.readFile(classifyJSONPath, 'utf8'))
+const model = await tf.loadLayersModel(modelPath)
 
 ConnectDatabase()
 ConnectAdafruit()
@@ -109,8 +116,45 @@ io.on("connection", (socket) => {
         }
     });
 
+    socket.on('getLog', async (data) => {
+        const user_id = data.user_id
+        const logs = await Log.find({ user_id: user_id })
+
+        if (socket.id != null) {
+            io.to(socket.id).emit("log_recv", { logs: logs })
+        }
+    })
+
     socket.on('webcam-data', async (data) => {
-        console.log(data.image)
+
+        const base64 = data.image.split(',')[1]
+        const b = Buffer.from(base64, 'base64')
+        const t = tf.image.resizeNearestNeighbor(tf.node.decodeImage(b), [224, 224])
+
+
+        // // Convert PNG image data to base64 string
+        // const pngData = await tf.node.encodeJpeg(t);
+
+
+        // const buffer = Buffer.from(pngData);
+        // const base64data = buffer.toString('base64');
+
+        // console.log(base64data);
+
+        //console.log(model.summary())
+        //console.log(t.expandDims(0))
+
+        let predictions = await model.predict(t.expandDims(0)).data();
+        let maxValue = predictions[0]; // Assume the first element is the maximum value
+        let maxIndex = 0; // Assume the index of the maximum value is 0
+        for (let i = 0; i < predictions.length; i++) {
+            if (predictions[i] > maxValue) {
+                maxValue = predictions[i];
+                maxIndex = i;
+            }
+        }
+        console.log(classifyIndices[maxIndex])
+        console.log(maxValue)
     })
 });
 
