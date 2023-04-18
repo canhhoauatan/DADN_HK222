@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.15",
+    "@teachablemachine/image": "^0.8.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -16,10 +17,8 @@
     "react-chartjs-2": "^5.2.0",
     "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
-    "react-pro-sidebar": "^1.0.0",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
-    "react-webcam": "^7.0.1",
     "socket.io-client": "^4.6.1",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"

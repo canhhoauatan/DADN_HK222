@@ -8,7 +8,7 @@ class LineChart extends React.Component {
 
     render() {
         return (
-            <Line data={this.props.data} />
+            <Line height={this.props.height} data={this.props.data} />
         )
     }
 

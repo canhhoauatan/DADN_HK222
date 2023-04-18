@@ -3,6 +3,8 @@ import { Link, NavLink } from 'react-router-dom';
 import WindowIcon from '@mui/icons-material/Window';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import ControlCameraIcon from '@mui/icons-material/ControlCamera';
+import HistoryIcon from '@mui/icons-material/History';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 import { useStateContext } from '../contexts/ContextProvider';
 
@@ -43,8 +45,10 @@ const Sidebar = () => {
                     }
                 </div>
                 <div className='mt-10'>
-                    <MenuItem to="/" icon={<WindowIcon />} title="Dashboard" activeMenu={activeMenu} />
+                    <MenuItem to="/" icon={<WindowIcon />} title="Tổng quan" activeMenu={activeMenu} />
                     <MenuItem to="/control" icon={<ControlCameraIcon />} title="Điều khiển" activeMenu={activeMenu} />
+                    <MenuItem to="/data" icon={<BarChartIcon />} title="Dữ liệu" activeMenu={activeMenu} />
+                    <MenuItem to="/activity" icon={<HistoryIcon />} title="Hoạt động" activeMenu={activeMenu} />
                 </div>
             </div >
             <div className={activeMenu ? 'w-60' : 'w-20'}></div>

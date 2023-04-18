@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { socket } from '../socket';
 import Cookie from 'universal-cookie';
 import LineChart from '../components/LineChart';
 import SensorCard from '../components/SensorCard';
-import Webcam from 'react-webcam';
 import DataTable from 'react-data-table-component';
+import { Link } from 'react-router-dom';
+import WebcamCapture from '../components/WebcamCapture';
+
+
 const cookie = new Cookie()
+
 
 const Dashboard = () => {
     const initLightData = {
@@ -48,15 +52,18 @@ const Dashboard = () => {
     const [pHData, setPHData] = useState(JSON.parse(JSON.stringify({ ...initPHData })));
     const [chartActive, setChartActive] = useState('light')
     const [logData, setLogData] = useState([]);
+    // const [imgSrc, setImgSrc] = useState('');
+    // const webcamRef = useRef(null);
 
     const columns = [{ name: 'Thời gian', selector: row => row.time, sortable: true }, { name: 'Hoạt động', selector: row => row.activity }]
 
-    const webcamRef = useRef(null);
 
-    const captureAndSend = () => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        socket.emit('webcam-data', { image: imageSrc });
-    };
+
+    // const captureAndSend = () => {
+    //     const imageSrc = webcamRef.current.getScreenshot()
+    //     setImgSrc(imageSrc)
+    //     socket.emit('webcam-data', { image: imageSrc })
+    // };
 
     useEffect(() => {
         socket.connect()
@@ -118,37 +125,40 @@ const Dashboard = () => {
 
     return (
         <div className='body' style={{ color: 'white' }}>
-            <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
+            <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1'>
                 <SensorCard image='./img/sun.png' value={lightValue} unit="%" title="Độ sáng" />
                 <SensorCard image='./img/temp.png' value={tempValue} unit="°C" title="Nhiệt độ" />
                 <SensorCard image='./img/ph.png' value={pHValue} unit="pH" title="Độ ẩm đất" />
+                <WebcamCapture />
             </div>
             <div className='flex items-start'>
                 <div className='flex flex-col flex-1'>
                     <div className='w-11/12 bg-white p-3 shadow-md rounded-lg m-auto' >
-                        <div className='text-black font-semibold m-3'>Thống kê</div>
-                        <LineChart data={
+                        <div className='text-black font-semibold m-3'>
+                            <Link to='/data' >Thống kê</Link>
+                        </div>
+
+                        {/* <div className='text-black font-semibold m-3'>Thống kê</div> */}
+                        <LineChart height={140} data={
                             chartActive === 'light' ? lightData :
                                 chartActive === 'temp' ? tempData :
                                     chartActive === 'ph' ? pHData : null
                         } />
 
-                        <div className='flex justify-center m-5'>
-                            <button onClick={() => setChartActive('light')} className={chartActive === 'light' ? 'bg-yellow-400 text-white py-2 px-3 rounded-md font-medium mx-7' : 'hover:bg-yellow-100 text-yellow-400 py-2 px-3 rounded-md first-letter:font-medium mx-7'}>Độ sáng</button>
-                            <button onClick={() => setChartActive('temp')} className={chartActive === 'temp' ? 'bg-red-500 text-white py-2 px-3 rounded-md font-medium mx-7' : 'hover:bg-red-100 text-red-500 py-2 px-3 font-medium rounded-md mx-7'}> Nhiệt độ</button>
-                            <button onClick={() => setChartActive('ph')} className={chartActive === 'ph' ? 'bg-purple-500 text-white py-2 px-3 rounded-md font-medium mx-7' : 'hover:bg-purple-100 text-purple-500 py-2 px-3 rounded-md font-medium mx-7'}>Độ ẩm</button>
+                        <div className='flex justify-around'>
+                            <button onClick={() => setChartActive('light')} className={chartActive === 'light' ? 'bg-yellow-400 text-white py-2 px-3 rounded-md font-medium' : 'hover:bg-yellow-100 text-yellow-400 py-2 px-3 rounded-md font-medium'}>Độ sáng</button>
+                            <button onClick={() => setChartActive('temp')} className={chartActive === 'temp' ? 'bg-red-500 text-white py-2 px-3 rounded-md font-medium' : 'hover:bg-red-100 text-red-500 py-2 px-3 font-medium rounded-md'}> Nhiệt độ</button>
+                            <button onClick={() => setChartActive('ph')} className={chartActive === 'ph' ? 'bg-purple-500 text-white py-2 px-3 rounded-md font-medium' : 'hover:bg-purple-100 text-purple-500 py-2 px-3 rounded-md font-medium'}>Độ ẩm</button>
                         </div>
                     </div>
                 </div>
                 <div className='flex-1'>
                     <div className='w-11/12 bg-white p-3 shadow-md rounded-lg m-auto' >
-                        <div className='text-black font-semibold m-3'>Hoạt động gần đây</div>
+                        <div className='text-black font-semibold m-3'>
+                            <Link to='/activity' >Hoạt động gần đây</Link>
+                        </div>
                         <DataTable columns={columns} data={logData} />
                     </div>
-                    {/* <div>
-                        <Webcam className='' screenshotFormat="image/jpeg" ref={webcamRef} />
-                        <button className='bg-black' onClick={captureAndSend}>Capture and Send</button>
-                    </div> */}
                 </div>
             </div>
         </div >
