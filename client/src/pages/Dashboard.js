@@ -52,21 +52,13 @@ const Dashboard = () => {
     const [pHData, setPHData] = useState(JSON.parse(JSON.stringify({ ...initPHData })));
     const [chartActive, setChartActive] = useState('light')
     const [logData, setLogData] = useState([]);
-    // const [imgSrc, setImgSrc] = useState('');
-    // const webcamRef = useRef(null);
 
     const columns = [{ name: 'Thời gian', selector: row => row.time, sortable: true }, { name: 'Hoạt động', selector: row => row.activity }]
 
-
-
-    // const captureAndSend = () => {
-    //     const imageSrc = webcamRef.current.getScreenshot()
-    //     setImgSrc(imageSrc)
-    //     socket.emit('webcam-data', { image: imageSrc })
-    // };
-
     useEffect(() => {
-        socket.connect()
+        if (!socket.connected) {
+            socket.connect()
+        }
 
         const handleRecordRecv = (data) => {
             if (data.type === 'yolo-light') {

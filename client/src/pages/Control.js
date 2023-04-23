@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Box, CardContent, Typography, CardMedia, Modal, autocompleteClasses, } from '@mui/material';
+import { Card, Box, CardContent, Typography, CardMedia, Modal } from '@mui/material';
 import RangeSlider from '../components/RangeSlider';
 import IOSSwitch from '../components/IOSSwitch';
 import Cookie from 'universal-cookie';
@@ -72,7 +72,9 @@ const Control = () => {
     }
 
     useEffect(() => {
-        socket.connect()
+        if (socket.connected) {
+            socket.connect()
+        }
 
         socket.emit('getData', { user_id: cookie.get('user_id') })
 

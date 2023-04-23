@@ -11,18 +11,19 @@ import { useStateContext } from '../contexts/ContextProvider';
 const activeLink = 'flex shadow-md items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-white text-md m-3 bg-green-500';
 const normalLink = 'flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-3';
 
-const MenuItem = ({ to, icon, title, activeMenu }) => (
-    <div>
-        <NavLink to={to} className={({ isActive }) => isActive ? activeLink : normalLink}>
-            {icon}
-            {activeMenu ? title : ''}
-        </NavLink>
-    </div>
-)
+
 
 const Sidebar = () => {
+    const MenuItem = ({ to, icon, title, activeMenu }) => (
+        <div>
+            <NavLink onClick={() => { setActiveTitle(title) }} to={to} className={({ isActive }) => isActive ? activeLink : normalLink}>
+                {icon}
+                {activeMenu ? title : ''}
+            </NavLink>
+        </div>
+    )
     const { activeMenu, setActiveMenu } = useStateContext()
-
+    const { setActiveTitle } = useStateContext()
 
     let sidebarClass = 'fixed bg-white shadow-xl transition-all ease-in-out h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto '
 
